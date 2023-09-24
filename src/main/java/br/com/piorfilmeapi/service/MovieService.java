@@ -32,7 +32,7 @@ public class MovieService {
     }
 
     public List<MovieResponseDto> getWinningMovies() {
-        var movies = movieRepository.findByWinner("yes");
+        var movies = movieRepository.findByWinnerOrderByYear("yes");
         return movieMapper.moviesToMovieResponseDtos(movies);
     }
 

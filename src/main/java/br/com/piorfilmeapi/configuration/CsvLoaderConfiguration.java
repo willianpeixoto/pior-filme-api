@@ -40,11 +40,26 @@ public class CsvLoaderConfiguration {
                     .build();
 
             List<Movie> movies = csvToBean.parse();
-            movieRepository.saveAll(movies);
+            var normalizedMovies = normalizeMovies(movies);
+            movieRepository.saveAll(normalizedMovies);
 
             log.info("Foram importados {} fimes com sucesso!", movies.size());
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private List<Movie> normalizeMovies(List<Movie> movies) {
+        for(Movie movie : movies) {
+            if(movie.getProducers().contains(" and ")) {
+                var producers = movie.getProducers();
+                var normalizedProducer = producers.replace(", and ", ",");
+                movie.setProducers(normalizedProducer.replace(" and ", ","));
+            }
+            if(movie.getWinner().equalsIgnoreCase("yes")) {
+                movie.setWinner("yes");
+            }
+        }
+        return movies;
     }
 }

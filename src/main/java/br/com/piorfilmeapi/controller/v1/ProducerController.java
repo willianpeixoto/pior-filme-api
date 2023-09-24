@@ -3,6 +3,7 @@ package br.com.piorfilmeapi.controller.v1;
 import br.com.piorfilmeapi.dto.ProducerResponseDto;
 import br.com.piorfilmeapi.service.ProducerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,7 +15,7 @@ public class ProducerController implements ProducerApi {
 
     @Override
     public ResponseEntity<ProducerResponseDto> getProducersWithAwardWinningMovies() {
-        ProducerResponseDto producer = producerService.getProducersWithAwardWinningMovies();
-        return null;
+        var producers = producerService.getProducersWithAwardWinningMovies();
+        return ResponseEntity.status(HttpStatus.OK).body(producers);
     }
 }
