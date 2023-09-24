@@ -2,7 +2,6 @@ package br.com.piorfilmeapi.controller.v1;
 
 import br.com.piorfilmeapi.dto.MovieRequestDto;
 import br.com.piorfilmeapi.dto.MovieResponseDto;
-import br.com.piorfilmeapi.entity.Movie;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
