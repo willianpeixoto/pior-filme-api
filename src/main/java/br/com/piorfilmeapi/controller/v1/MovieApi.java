@@ -1,5 +1,7 @@
 package br.com.piorfilmeapi.controller.v1;
 
+import br.com.piorfilmeapi.dto.MovieRequestDto;
+import br.com.piorfilmeapi.dto.MovieResponseDto;
 import br.com.piorfilmeapi.entity.Movie;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,19 +22,19 @@ public interface MovieApi {
 
     @ApiOperation("Lista todos os filmes")
     @GetMapping()
-    ResponseEntity<List<Movie>> getAllMovies();
+    ResponseEntity<List<MovieResponseDto>> getAllMovies();
 
     @ApiOperation("Busca um filme pelo ID")
     @GetMapping("/{id}")
-    ResponseEntity<Movie> getMovieById(@PathVariable Long id);
+    ResponseEntity<MovieResponseDto> getMovieById(@PathVariable Long id);
 
     @ApiOperation("Cria um novo filme")
     @PostMapping()
-    ResponseEntity<Movie> createMovie(@RequestBody Movie movie);
+    ResponseEntity<MovieResponseDto> createMovie(@RequestBody MovieRequestDto movieRequest);
 
     @ApiOperation("Atualiza um filme existente")
     @PutMapping("/{id}")
-    ResponseEntity<Movie> updateMovie(@PathVariable Long id, @RequestBody Movie movie);
+    ResponseEntity<MovieResponseDto> updateMovie(@PathVariable Long id, @RequestBody MovieRequestDto movie);
 
     @ApiOperation("Exclui um filme pelo ID")
     @DeleteMapping("/{id}")

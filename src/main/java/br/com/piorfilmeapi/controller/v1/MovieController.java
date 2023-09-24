@@ -1,6 +1,7 @@
 package br.com.piorfilmeapi.controller.v1;
 
-import br.com.piorfilmeapi.entity.Movie;
+import br.com.piorfilmeapi.dto.MovieRequestDto;
+import br.com.piorfilmeapi.dto.MovieResponseDto;
 import br.com.piorfilmeapi.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,14 +18,14 @@ public class MovieController implements MovieApi {
     private final MovieService service;
 
     @Override
-    public ResponseEntity<List<Movie>> getAllMovies() {
-        List<Movie> movies = service.getAllMovies();
+    public ResponseEntity<List<MovieResponseDto>> getAllMovies() {
+        List<MovieResponseDto> movies = service.getAllMovies();
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<Movie> getMovieById(Long id) {
-        Optional<Movie> movie = service.getMovieById(id);
+    public ResponseEntity<MovieResponseDto> getMovieById(Long id) {
+        Optional<MovieResponseDto> movie = service.getMovieById(id);
         if (movie.isPresent()) {
             return ResponseEntity.ok(movie.get());
         } else {
@@ -33,14 +34,14 @@ public class MovieController implements MovieApi {
     }
 
     @Override
-    public ResponseEntity<Movie> createMovie(Movie movie) {
-        Movie createdMovie = service.createMovie(movie);
+    public ResponseEntity<MovieResponseDto> createMovie(MovieRequestDto movieRequest) {
+        var createdMovie = service.createMovie(movieRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdMovie);
     }
 
     @Override
-    public ResponseEntity<Movie> updateMovie(Long id, Movie movie) {
-        Optional<Movie> updatedMovie = service.updateMovie(id, movie);
+    public ResponseEntity<MovieResponseDto> updateMovie(Long id, MovieRequestDto movieRequest) {
+        Optional<MovieResponseDto> updatedMovie = service.updateMovie(id, movieRequest);
         if (updatedMovie.isPresent()) {
             return ResponseEntity.ok(updatedMovie.get());
         } else {
