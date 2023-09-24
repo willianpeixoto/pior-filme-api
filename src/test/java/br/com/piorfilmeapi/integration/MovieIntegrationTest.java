@@ -44,6 +44,14 @@ public class MovieIntegrationTest {
     }
 
     @Test
+    public void testGetMovieByIdNotExist() throws Exception {
+        Long movieId = -1L;
+        mockMvc.perform(MockMvcRequestBuilders.get(URI.concat("/{id}"), movieId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     public void testCreateMovie() throws Exception {
         var movie = MovieRequestDto.builder().build();
         var jsonRequest = objectMapper.writeValueAsString(movie);
@@ -67,11 +75,30 @@ public class MovieIntegrationTest {
     }
 
     @Test
+    public void testUpdateMovieWithIdNotExist() throws Exception {
+        var movieId = -1L;
+        var updatedMovie = MovieRequestDto.builder().build();
+        var jsonRequest = objectMapper.writeValueAsString(updatedMovie);
+        mockMvc.perform(MockMvcRequestBuilders.put(URI.concat("/{id}"), movieId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonRequest))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     public void testDeleteMovie() throws Exception {
         var movieId = 1L;
         mockMvc.perform(MockMvcRequestBuilders.delete(URI.concat("/{id}"), movieId)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void testDeleteMovieWithIdNotExist() throws Exception {
+        var movieId = -1L;
+        mockMvc.perform(MockMvcRequestBuilders.delete(URI.concat("/{id}"), movieId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 }
 
