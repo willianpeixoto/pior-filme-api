@@ -31,6 +31,11 @@ public class MovieService {
         return Optional.of(movieResponse);
     }
 
+    public List<MovieResponseDto> getWinningMovies() {
+        var movies = movieRepository.findByWinner("yes");
+        return movieMapper.moviesToMovieResponseDtos(movies);
+    }
+
     public MovieResponseDto createMovie(MovieRequestDto movieRequest) {
         var movie = movieMapper.movieRequestDtoToMovie(movieRequest);
         var createdMovie = movieRepository.save(movie);
