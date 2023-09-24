@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/v1/producers")
 public interface ProducerApi {
 
-    @ApiOperation("Lista os produtores com filmes premiados mais rápido e com maior intervalo entre prêmios")
+    @ApiOperation("Lista os produtores com filmes premiados mais rápido e com maior e menor intervalo entre prêmios")
     @GetMapping()
     ResponseEntity<ProducerResponseDto> getProducersWithAwardWinningMovies();
 }
